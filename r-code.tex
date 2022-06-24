@@ -1,0 +1,528 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={default prediction SVM},
+  pdfauthor={KEVIN KANYARI},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{default prediction SVM}
+\author{KEVIN KANYARI}
+\date{16/05/2022}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{loan}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/admin/Desktop/loan 2.csv"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{View}\NormalTok{(loan}\FloatTok{.2}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(loan}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        id             member_id          loan_amnt      funded_amnt   
+##  Min.   :   54734   Min.   :   70473   Min.   :  500   Min.   :  500  
+##  1st Qu.: 9206643   1st Qu.:10877134   1st Qu.: 8000   1st Qu.: 8000  
+##  Median :34433267   Median :37095283   Median :13000   Median :13000  
+##  Mean   :32465133   Mean   :35001825   Mean   :14755   Mean   :14742  
+##  3rd Qu.:54908135   3rd Qu.:58471347   3rd Qu.:20000   3rd Qu.:20000  
+##  Max.   :68617057   Max.   :73544841   Max.   :35000   Max.   :35000  
+##                                                                       
+##  funded_amnt_inv     term              int_rate      installment     
+##  Min.   :    0   Length:887379      Min.   : 5.32   Min.   :  15.67  
+##  1st Qu.: 8000   Class :character   1st Qu.: 9.99   1st Qu.: 260.70  
+##  Median :13000   Mode  :character   Median :12.99   Median : 382.55  
+##  Mean   :14702                      Mean   :13.25   Mean   : 436.72  
+##  3rd Qu.:20000                      3rd Qu.:16.20   3rd Qu.: 572.60  
+##  Max.   :35000                      Max.   :28.99   Max.   :1445.46  
+##                                                                      
+##     grade            sub_grade          emp_length        home_ownership    
+##  Length:887379      Length:887379      Length:887379      Length:887379     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    annual_inc      verification_status   issue_d          loan_status       
+##  Min.   :      0   Length:887379       Length:887379      Length:887379     
+##  1st Qu.:  45000   Class :character    Class :character   Class :character  
+##  Median :  65000   Mode  :character    Mode  :character   Mode  :character  
+##  Mean   :  75028                                                            
+##  3rd Qu.:  90000                                                            
+##  Max.   :9500000                                                            
+##  NA's   :4                                                                  
+##   pymnt_plan          purpose             title             zip_code        
+##  Length:887379      Length:887379      Length:887379      Length:887379     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##   addr_state             dti           delinq_2yrs      earliest_cr_line  
+##  Length:887379      Min.   :   0.00   Min.   : 0.0000   Length:887379     
+##  Class :character   1st Qu.:  11.91   1st Qu.: 0.0000   Class :character  
+##  Mode  :character   Median :  17.65   Median : 0.0000   Mode  :character  
+##                     Mean   :  18.16   Mean   : 0.3144                     
+##                     3rd Qu.:  23.95   3rd Qu.: 0.0000                     
+##                     Max.   :9999.00   Max.   :39.0000                     
+##                                       NA's   :29                          
+##  inq_last_6mths       open_acc        pub_rec          revol_bal      
+##  Min.   : 0.0000   Min.   : 0.00   Min.   : 0.0000   Min.   :      0  
+##  1st Qu.: 0.0000   1st Qu.: 8.00   1st Qu.: 0.0000   1st Qu.:   6443  
+##  Median : 0.0000   Median :11.00   Median : 0.0000   Median :  11875  
+##  Mean   : 0.6946   Mean   :11.55   Mean   : 0.1953   Mean   :  16921  
+##  3rd Qu.: 1.0000   3rd Qu.:14.00   3rd Qu.: 0.0000   3rd Qu.:  20829  
+##  Max.   :33.0000   Max.   :90.00   Max.   :86.0000   Max.   :2904836  
+##  NA's   :29        NA's   :29      NA's   :29                         
+##    revol_util       total_acc      initial_list_status   out_prncp    
+##  Min.   :  0.00   Min.   :  1.00   Length:887379       Min.   :    0  
+##  1st Qu.: 37.70   1st Qu.: 17.00   Class :character    1st Qu.:    0  
+##  Median : 56.00   Median : 24.00   Mode  :character    Median : 6458  
+##  Mean   : 55.07   Mean   : 25.27                       Mean   : 8403  
+##  3rd Qu.: 73.60   3rd Qu.: 32.00                       3rd Qu.:13659  
+##  Max.   :892.30   Max.   :169.00                       Max.   :49373  
+##  NA's   :502      NA's   :29                                          
+##  out_prncp_inv    total_pymnt    total_pymnt_inv total_rec_prncp
+##  Min.   :    0   Min.   :    0   Min.   :    0   Min.   :    0  
+##  1st Qu.:    0   1st Qu.: 1915   1st Qu.: 1900   1st Qu.: 1201  
+##  Median : 6456   Median : 4895   Median : 4862   Median : 3215  
+##  Mean   : 8400   Mean   : 7559   Mean   : 7521   Mean   : 5758  
+##  3rd Qu.:13654   3rd Qu.:10617   3rd Qu.:10566   3rd Qu.: 8000  
+##  Max.   :49373   Max.   :57778   Max.   :57778   Max.   :35000  
+##                                                                 
+##  total_rec_int     total_rec_late_fee   recoveries      
+##  Min.   :    0.0   Min.   :  0.0000   Min.   :    0.00  
+##  1st Qu.:  441.5   1st Qu.:  0.0000   1st Qu.:    0.00  
+##  Median : 1073.3   Median :  0.0000   Median :    0.00  
+##  Mean   : 1754.8   Mean   :  0.3967   Mean   :   45.92  
+##  3rd Qu.: 2238.3   3rd Qu.:  0.0000   3rd Qu.:    0.00  
+##  Max.   :24205.6   Max.   :358.6800   Max.   :33520.27  
+##                                                         
+##  collection_recovery_fee last_pymnt_d       last_pymnt_amnt  
+##  Min.   :   0.000        Length:887379      Min.   :    0.0  
+##  1st Qu.:   0.000        Class :character   1st Qu.:  280.2  
+##  Median :   0.000        Mode  :character   Median :  462.8  
+##  Mean   :   4.881                           Mean   : 2164.2  
+##  3rd Qu.:   0.000                           3rd Qu.:  831.2  
+##  Max.   :7002.190                           Max.   :36475.6  
+##                                                              
+##  last_credit_pull_d collections_12_mths_ex_med  policy_code application_type  
+##  Length:887379      Min.   : 0.00000           Min.   :1    Length:887379     
+##  Class :character   1st Qu.: 0.00000           1st Qu.:1    Class :character  
+##  Mode  :character   Median : 0.00000           Median :1    Mode  :character  
+##                     Mean   : 0.01438           Mean   :1                      
+##                     3rd Qu.: 0.00000           3rd Qu.:1                      
+##                     Max.   :20.00000           Max.   :1                      
+##                     NA's   :145                                               
+##  acc_now_delinq     
+##  Min.   : 0.000000  
+##  1st Qu.: 0.000000  
+##  Median : 0.000000  
+##  Mean   : 0.004991  
+##  3rd Qu.: 0.000000  
+##  Max.   :14.000000  
+##  NA's   :29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{loan.c }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(loan}\FloatTok{.2}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(loan.c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        id             member_id          loan_amnt      funded_amnt   
+##  Min.   :   54734   Min.   :   70825   Min.   :  500   Min.   :  500  
+##  1st Qu.: 9208870   1st Qu.:10879122   1st Qu.: 8000   1st Qu.: 8000  
+##  Median :34442491   Median :37096700   Median :13000   Median :13000  
+##  Mean   :32473897   Mean   :35011269   Mean   :14758   Mean   :14745  
+##  3rd Qu.:54908928   3rd Qu.:58479058   3rd Qu.:20000   3rd Qu.:20000  
+##  Max.   :68617057   Max.   :73544841   Max.   :35000   Max.   :35000  
+##  funded_amnt_inv     term              int_rate      installment     
+##  Min.   :    0   Length:886764      Min.   : 5.32   Min.   :  15.67  
+##  1st Qu.: 8000   Class :character   1st Qu.: 9.99   1st Qu.: 260.85  
+##  Median :13000   Mode  :character   Median :12.99   Median : 382.55  
+##  Mean   :14706                      Mean   :13.25   Mean   : 436.79  
+##  3rd Qu.:20000                      3rd Qu.:16.20   3rd Qu.: 572.64  
+##  Max.   :35000                      Max.   :28.99   Max.   :1445.46  
+##     grade            sub_grade          emp_length        home_ownership    
+##  Length:886764      Length:886764      Length:886764      Length:886764     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##    annual_inc      verification_status   issue_d          loan_status       
+##  Min.   :      0   Length:886764       Length:886764      Length:886764     
+##  1st Qu.:  45000   Class :character    Class :character   Class :character  
+##  Median :  65000   Mode  :character    Mode  :character   Mode  :character  
+##  Mean   :  75019                                                            
+##  3rd Qu.:  90000                                                            
+##  Max.   :9500000                                                            
+##   pymnt_plan          purpose             title             zip_code        
+##  Length:886764      Length:886764      Length:886764      Length:886764     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##   addr_state             dti           delinq_2yrs      earliest_cr_line  
+##  Length:886764      Min.   :   0.00   Min.   : 0.0000   Length:886764     
+##  Class :character   1st Qu.:  11.91   1st Qu.: 0.0000   Class :character  
+##  Mode  :character   Median :  17.66   Median : 0.0000   Mode  :character  
+##                     Mean   :  18.16   Mean   : 0.3143                     
+##                     3rd Qu.:  23.95   3rd Qu.: 0.0000                     
+##                     Max.   :9999.00   Max.   :39.0000                     
+##  inq_last_6mths       open_acc        pub_rec          revol_bal      
+##  Min.   : 0.0000   Min.   : 1.00   Min.   : 0.0000   Min.   :      0  
+##  1st Qu.: 0.0000   1st Qu.: 8.00   1st Qu.: 0.0000   1st Qu.:   6451  
+##  Median : 0.0000   Median :11.00   Median : 0.0000   Median :  11880  
+##  Mean   : 0.6945   Mean   :11.55   Mean   : 0.1954   Mean   :  16925  
+##  3rd Qu.: 1.0000   3rd Qu.:14.00   3rd Qu.: 0.0000   3rd Qu.:  20834  
+##  Max.   :33.0000   Max.   :90.00   Max.   :86.0000   Max.   :2904836  
+##    revol_util       total_acc      initial_list_status   out_prncp    
+##  Min.   :  0.00   Min.   :  1.00   Length:886764       Min.   :    0  
+##  1st Qu.: 37.70   1st Qu.: 17.00   Class :character    1st Qu.:    0  
+##  Median : 56.00   Median : 24.00   Mode  :character    Median : 6466  
+##  Mean   : 55.07   Mean   : 25.27                       Mean   : 8406  
+##  3rd Qu.: 73.60   3rd Qu.: 32.00                       3rd Qu.:13661  
+##  Max.   :892.30   Max.   :169.00                       Max.   :49373  
+##  out_prncp_inv    total_pymnt    total_pymnt_inv total_rec_prncp
+##  Min.   :    0   Min.   :    0   Min.   :    0   Min.   :    0  
+##  1st Qu.:    0   1st Qu.: 1915   1st Qu.: 1901   1st Qu.: 1201  
+##  Median : 6461   Median : 4895   Median : 4864   Median : 3215  
+##  Mean   : 8402   Mean   : 7559   Mean   : 7522   Mean   : 5758  
+##  3rd Qu.:13657   3rd Qu.:10618   3rd Qu.:10567   3rd Qu.: 8000  
+##  Max.   :49373   Max.   :57778   Max.   :57778   Max.   :35000  
+##  total_rec_int     total_rec_late_fee   recoveries      
+##  Min.   :    0.0   Min.   :  0.0000   Min.   :    0.00  
+##  1st Qu.:  441.5   1st Qu.:  0.0000   1st Qu.:    0.00  
+##  Median : 1073.6   Median :  0.0000   Median :    0.00  
+##  Mean   : 1755.0   Mean   :  0.3955   Mean   :   45.91  
+##  3rd Qu.: 2238.6   3rd Qu.:  0.0000   3rd Qu.:    0.00  
+##  Max.   :24205.6   Max.   :358.6800   Max.   :33520.27  
+##  collection_recovery_fee last_pymnt_d       last_pymnt_amnt  
+##  Min.   :   0.000        Length:886764      Min.   :    0.0  
+##  1st Qu.:   0.000        Class :character   1st Qu.:  280.2  
+##  Median :   0.000        Mode  :character   Median :  462.9  
+##  Mean   :   4.877                           Mean   : 2164.3  
+##  3rd Qu.:   0.000                           3rd Qu.:  831.2  
+##  Max.   :7002.190                           Max.   :36475.6  
+##  last_credit_pull_d collections_12_mths_ex_med  policy_code application_type  
+##  Length:886764      Min.   : 0.00000           Min.   :1    Length:886764     
+##  Class :character   1st Qu.: 0.00000           1st Qu.:1    Class :character  
+##  Mode  :character   Median : 0.00000           Median :1    Mode  :character  
+##                     Mean   : 0.01438           Mean   :1                      
+##                     3rd Qu.: 0.00000           3rd Qu.:1                      
+##                     Max.   :20.00000           Max.   :1                      
+##  acc_now_delinq     
+##  Min.   : 0.000000  
+##  1st Qu.: 0.000000  
+##  Median : 0.000000  
+##  Mean   : 0.004989  
+##  3rd Qu.: 0.000000  
+##  Max.   :14.000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We begin by loading the required packages}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.0     v dplyr   1.0.5
+## v tidyr   1.1.4     v stringr 1.4.0
+## v readr   2.1.1     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(purrr)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(forcats)}
+\FunctionTok{library}\NormalTok{(ggthemes)}
+\FunctionTok{library}\NormalTok{(corrplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## corrplot 0.92 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'GGally':
+##   method from   
+##   +.gg   ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(DT)}
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(sqldf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gsubfn
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: proto
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: RSQLite
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plotly)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'plotly'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     filter
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(DescTools)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'DescTools'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:caret':
+## 
+##     MAE, RMSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\#\#\#\#Data visualization}
+\FunctionTok{dim}\NormalTok{(loan.c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 886764     47
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{loan.c, }\FunctionTok{aes}\NormalTok{(loan\_amnt))}\SpecialCharTok{+}\FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{40}\NormalTok{,}\AttributeTok{color=}\StringTok{"orange"}\NormalTok{,}\AttributeTok{fill=}\StringTok{"green"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-code_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Desc}\NormalTok{(loan.c}\SpecialCharTok{$}\NormalTok{loan\_amnt, }\AttributeTok{main =} \StringTok{"Loan amount distribution"}\NormalTok{, }\AttributeTok{plotit =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ------------------------------------------------------------------------------ 
+## Loan amount distribution
+## 
+##      length         n       NAs     unique         0s       mean     meanCI'
+##     886'764   886'764         0      1'372          0  14'758.02  14'740.46
+##                100.0%      0.0%                  0.0%             14'775.57
+##                                                                            
+##         .05       .10       .25     median        .75        .90        .95
+##    3'600.00  5'000.00  8'000.00  13'000.00  20'000.00  28'000.00  32'000.00
+##                                                                            
+##       range        sd     vcoef        mad        IQR       skew       kurt
+##   34'500.00  8'434.27      0.57   8'599.08  12'000.00       0.68      -0.26
+##                                                                            
+## lowest : 500 (11), 550, 600 (6), 700 (2), 725
+## highest: 34'900 (14), 34'925 (9), 34'950 (18), 34'975 (31), 35'000 (36'341)
+## 
+## heap(?): remarkable frequency (7.0%) for the mode(s) (= 10000)
+## 
+## ' 95%-CI (classic)
+\end{verbatim}
+
+\includegraphics{r-code_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#correlogram of the numeric variables}
+\NormalTok{loan.num}\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{ (loan.c}\SpecialCharTok{$}\NormalTok{loan\_amnt,loan.c}\SpecialCharTok{$}\NormalTok{funded\_amnt\_inv,loan.c}\SpecialCharTok{$}\NormalTok{int\_rate,loan.c}\SpecialCharTok{$}\NormalTok{installment,loan.c}\SpecialCharTok{$}\NormalTok{annual\_inc,loan.c}\SpecialCharTok{$}\NormalTok{total\_pymnt)}
+\FunctionTok{corrplot}\NormalTok{(}\FunctionTok{cor}\NormalTok{(loan.num))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-code_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\end{document}
